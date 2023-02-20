@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Orangesk 3.1.0 - 2023-02-20
+
+### Feature
+
+ - [autoselect enabled when pressing done key on ios](https://github.com/orangesk/accessible-autocomplete/commit/b878a87b2ca03667c6bcc1cb5e32128ecc257d74)
+
 ## Orangesk 3.0.1 - 2022-10-06
 
 ### Fix

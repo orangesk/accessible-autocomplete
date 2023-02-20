@@ -145,7 +145,7 @@ export default class Autocomplete extends Component {
   }
 
   hasAutoselect () {
-    return isIosDevice() ? false : this.props.autoselect
+    return this.props.autoselect
   }
 
   // This template is used when converting from a state.options object into a state.query.
@@ -189,9 +189,11 @@ export default class Autocomplete extends Component {
     const focusingOutsideComponent = event.relatedTarget === null
     const focusingInput = event.relatedTarget === this.elementReferences[-1]
     const focusingAnotherOption = focused !== index && focused !== -1
-    const blurComponent = (!focusingAnotherOption && focusingOutsideComponent) || !(focusingAnotherOption || focusingInput)
+    const blurComponent =
+      (!focusingAnotherOption && focusingOutsideComponent) ||
+      !(focusingAnotherOption || focusingInput)
     if (blurComponent) {
-      const keepMenuOpen = menuOpen && isIosDevice()
+      const keepMenuOpen = menuOpen && isIosDevice() && !this.hasAutoselect()
       this.handleComponentBlur({
         menuOpen: keepMenuOpen,
         query: this.templateInputValue(options[selected])
@@ -202,9 +204,22 @@ export default class Autocomplete extends Component {
   handleInputBlur (event) {
     const { focused, menuOpen, options, query, selected } = this.state
     const focusingAnOption = focused >= 0
-    if (!focusingAnOption) {
+    if (
+      isIosDevice() &&
+      !event.relatedTarget &&
+      !focusingAnOption &&
+      this.hasAutoselect()
+    ) {
+      const newQuery = this.templateInputValue(options[selected])
+      this.handleComponentBlur({
+        menuOpen: false,
+        query: newQuery
+      })
+    } else if (!focusingAnOption) {
       const keepMenuOpen = menuOpen && isIosDevice()
-      const newQuery = isIosDevice() ? query : this.templateInputValue(options[selected])
+      const newQuery = isIosDevice()
+        ? query
+        : this.templateInputValue(options[selected])
       this.handleComponentBlur({
         menuOpen: keepMenuOpen,
         query: newQuery
@@ -421,6 +436,7 @@ export default class Autocomplete extends Component {
       cssNamespace,
       customInputClassName,
       displayMenu,
+      enterKeyHint,
       id,
       minLength,
       name,
@@ -508,6 +524,7 @@ export default class Autocomplete extends Component {
         )}
 
         <input
+          enterkeyhint={enterKeyHint || (isIosDevice() && this.hasAutoselect() ? 'done' : '')}
           aria-expanded={menuOpen ? 'true' : 'false'}
           aria-activedescendant={optionFocused ? `${id}__option--${focused}` : false}
           aria-owns={`${id}__listbox`}
