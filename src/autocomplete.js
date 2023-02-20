@@ -145,7 +145,7 @@ export default class Autocomplete extends Component {
   }
 
   hasAutoselect () {
-    return isIosDevice() ? false : this.props.autoselect
+    return this.props.autoselect
   }
 
   // This template is used when converting from a state.options object into a state.query.
@@ -436,6 +436,7 @@ export default class Autocomplete extends Component {
       cssNamespace,
       customInputClassName,
       displayMenu,
+      enterKeyHint,
       id,
       minLength,
       name,
@@ -523,6 +524,7 @@ export default class Autocomplete extends Component {
         )}
 
         <input
+          enterkeyhint={enterKeyHint ? enterKeyHint : (isIosDevice() && this.hasAutoselect() ? "done" : '')}
           aria-expanded={menuOpen ? 'true' : 'false'}
           aria-activedescendant={optionFocused ? `${id}__option--${focused}` : false}
           aria-owns={`${id}__listbox`}
