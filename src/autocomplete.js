@@ -524,7 +524,7 @@ export default class Autocomplete extends Component {
         )}
 
         <input
-          enterkeyhint={enterKeyHint ? enterKeyHint : (isIosDevice() && this.hasAutoselect() && 'done')}
+          enterkeyhint={enterKeyHint || (isIosDevice() && this.hasAutoselect() ? 'done' : '')}
           aria-expanded={menuOpen ? 'true' : 'false'}
           aria-activedescendant={optionFocused ? `${id}__option--${focused}` : false}
           aria-owns={`${id}__listbox`}
