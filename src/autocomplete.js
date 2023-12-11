@@ -474,14 +474,14 @@ export default class Autocomplete extends Component {
     const dropdownArrowClassName = `${cssNamespace}__dropdown-arrow-down`
     const optionFocused = focused !== -1 && focused !== null
 
-    const menuClass = `${cssNamespace}__menu`;
-    const menuModifierDisplayMenu = `${menuClass}--${displayMenu}`;
-    const menuIsVisible = menuOpen || showNoOptionsFound;
+    const menuClass = `${cssNamespace}__menu`
+    const menuModifierDisplayMenu = `${menuClass}--${displayMenu}`
+    const menuIsVisible = menuOpen || showNoOptionsFound
     const menuModifierVisibility = `${menuClass}--${
       menuIsVisible ? 'visible' : 'hidden'
-    }`;
+    }`
 
-    const optionClass = `${cssNamespace}__option`;
+    const optionClass = `${cssNamespace}__option`
 
     const hintClassName = `${cssNamespace}__hint`
     const selectedOptionText = this.templateInputValue(options[selected])
@@ -565,8 +565,8 @@ export default class Autocomplete extends Component {
           {options.map((option, index) => {
             const showFocused = focused === -1 ? selected === index : focused === index
             const optionModifierFocused =
-              showFocused && hovered === null ? ` ${optionClass}--focused` : '';
-            const optionModifierOdd = index % 2 ? ` ${optionClass}--odd` : '';
+              showFocused && hovered === null ? ` ${optionClass}--focused` : ''
+            const optionModifierOdd = index % 2 ? ` ${optionClass}--odd` : ''
             const iosPosinsetHtml = (isIosDevice())
               ? `<span id=${id}__option-suffix--${index} style="border:0;clip:rect(0 0 0 0);height:1px;` +
                 'marginBottom:-1px;marginRight:-1px;overflow:hidden;padding:0;position:absolute;' +
@@ -596,9 +596,7 @@ export default class Autocomplete extends Component {
           })}
 
           {showNoOptionsFound && (
-            <li className={`${optionClass}${
-                  optionClassName ? ' ' + optionClassName : ''
-                } ${optionClass}--no-results`}>
+            <li className={`${optionClass}${optionClassName ? ' ' + optionClassName : ''} ${optionClass}--no-results`}>
               {tNoResults()}
             </li>
           )}
