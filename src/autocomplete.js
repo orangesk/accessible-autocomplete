@@ -39,6 +39,8 @@ export default class Autocomplete extends Component {
     autoselect: false,
     cssNamespace: 'autocomplete',
     customInputClassName: '',
+    menuClassName: '',
+    optionClassName: '',
     defaultValue: '',
     displayMenu: 'inline',
     minLength: 0,
@@ -435,6 +437,8 @@ export default class Autocomplete extends Component {
     const {
       cssNamespace,
       customInputClassName,
+      optionClassName,
+      menuClassName,
       displayMenu,
       enterKeyHint,
       id,
@@ -470,12 +474,14 @@ export default class Autocomplete extends Component {
     const dropdownArrowClassName = `${cssNamespace}__dropdown-arrow-down`
     const optionFocused = focused !== -1 && focused !== null
 
-    const menuClassName = `${cssNamespace}__menu`
-    const menuModifierDisplayMenu = `${menuClassName}--${displayMenu}`
-    const menuIsVisible = menuOpen || showNoOptionsFound
-    const menuModifierVisibility = `${menuClassName}--${(menuIsVisible) ? 'visible' : 'hidden'}`
+    const menuClass = `${cssNamespace}__menu`;
+    const menuModifierDisplayMenu = `${menuClass}--${displayMenu}`;
+    const menuIsVisible = menuOpen || showNoOptionsFound;
+    const menuModifierVisibility = `${menuClass}--${
+      menuIsVisible ? 'visible' : 'hidden'
+    }`;
 
-    const optionClassName = `${cssNamespace}__option`
+    const optionClass = `${cssNamespace}__option`;
 
     const hintClassName = `${cssNamespace}__hint`
     const selectedOptionText = this.templateInputValue(options[selected])
@@ -549,15 +555,18 @@ export default class Autocomplete extends Component {
         {dropdownArrow}
 
         <ul
-          className={`${menuClassName} ${menuModifierDisplayMenu} ${menuModifierVisibility}`}
+          className={`${menuClass} ${menuModifierDisplayMenu} ${menuModifierVisibility}${
+            menuClassName ? ' ' + menuClassName : ''
+          }`}
           onMouseLeave={(event) => this.handleListMouseLeave(event)}
           id={`${id}__listbox`}
           role='listbox'
         >
           {options.map((option, index) => {
             const showFocused = focused === -1 ? selected === index : focused === index
-            const optionModifierFocused = showFocused && hovered === null ? ` ${optionClassName}--focused` : ''
-            const optionModifierOdd = (index % 2) ? ` ${optionClassName}--odd` : ''
+            const optionModifierFocused =
+              showFocused && hovered === null ? ` ${optionClass}--focused` : '';
+            const optionModifierOdd = index % 2 ? ` ${optionClass}--odd` : '';
             const iosPosinsetHtml = (isIosDevice())
               ? `<span id=${id}__option-suffix--${index} style="border:0;clip:rect(0 0 0 0);height:1px;` +
                 'marginBottom:-1px;marginRight:-1px;overflow:hidden;padding:0;position:absolute;' +
@@ -567,7 +576,9 @@ export default class Autocomplete extends Component {
             return (
               <li
                 aria-selected={focused === index ? 'true' : 'false'}
-                className={`${optionClassName}${optionModifierFocused}${optionModifierOdd}`}
+                className={`${optionClass}${optionModifierFocused}${optionModifierOdd}${
+                  optionClassName ? ' ' + optionClassName : ''
+                }`}
                 dangerouslySetInnerHTML={{ __html: this.templateSuggestion(option) + iosPosinsetHtml }}
                 id={`${id}__option--${index}`}
                 key={index}
@@ -585,7 +596,11 @@ export default class Autocomplete extends Component {
           })}
 
           {showNoOptionsFound && (
-            <li className={`${optionClassName} ${optionClassName}--no-results`}>{tNoResults()}</li>
+            <li className={`${optionClass}${
+                  optionClassName ? ' ' + optionClassName : ''
+                } ${optionClass}--no-results`}>
+              {tNoResults()}
+            </li>
           )}
         </ul>
 
