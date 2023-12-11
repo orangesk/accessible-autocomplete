@@ -1,17 +1,22 @@
 # CHANGELOG
 
+## Orangesk 3.1.1 - 2023-12-11
+
+### Feature
+
+- [option to add custom class to menu and its options](https://github.com/orangesk/accessible-autocomplete/commit/b4b986dcf08bfccf779bfcf06608efb37a0270e5)
+
 ## Orangesk 3.1.0 - 2023-02-20
 
 ### Feature
 
- - [autoselect enabled when pressing done key on ios](https://github.com/orangesk/accessible-autocomplete/commit/b878a87b2ca03667c6bcc1cb5e32128ecc257d74)
+- [autoselect enabled when pressing done key on ios](https://github.com/orangesk/accessible-autocomplete/commit/b878a87b2ca03667c6bcc1cb5e32128ecc257d74)
 
 ## Orangesk 3.0.1 - 2022-10-06
 
 ### Fix
 
 - [fixes class doesnt have space when custom input class defined](https://github.com/orangesk/accessible-autocomplete/commit/77d9bce804ad25658ca37750ae2e2eed9f8f355d)
-
 
 ## Orangesk 3.0.0 - 2022-10-05
 
@@ -33,10 +38,10 @@
   - start search after click or focus on input
   - don't restart search after focusing from options to input element
 
-### Fixes 
+### Fixes
 
 - [Pull request #1: Trigger search on interaction](https://github.com/orangesk/accessible-autocomplete/pull/1)
-  - don't open menu after input blur 
+  - don't open menu after input blur
 
 ## Unreleased
 
@@ -128,7 +133,7 @@ Thanks to [Mark Hunter](https://github.com/markhunter27), Chris Moore and everyo
 - Update following dependencies (from "Current" to "Wanted"). This fixes failing WebdriverIO tests and updates JS Standard to use eslint 4.
 
 | Package                                  | Current | Wanted | Latest |
-|------------------------------------------|---------|--------|--------|
+| ---------------------------------------- | ------- | ------ | ------ |
 | babel-eslint                             | 8.0.0   | 8.2.6  | 8.2.6  |
 | babel-loader                             | 7.1.0   | 7.1.5  | 7.1.5  |
 | babel-plugin-transform-decorators-legacy | 1.3.4   | 1.3.5  | 1.3.5  |
@@ -188,7 +193,7 @@ Thanks to [Mark Hunter](https://github.com/markhunter27), Chris Moore and everyo
 
 ## 1.4.0 - 2017-07-04
 
-- [Feature] Add option to show all values on dropdown.  By [@joelanman](https://github.com/joelanman).
+- [Feature] Add option to show all values on dropdown. By [@joelanman](https://github.com/joelanman).
 
 ## 1.3.2 - 2017-07-03
 
