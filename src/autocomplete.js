@@ -38,6 +38,7 @@ export default class Autocomplete extends Component {
   static defaultProps = {
     autoselect: false,
     cssNamespace: 'autocomplete',
+    wrapperClassName: '',
     customInputClassName: '',
     menuClassName: '',
     optionClassName: '',
@@ -437,6 +438,7 @@ export default class Autocomplete extends Component {
     const {
       cssNamespace,
       customInputClassName,
+      wrapperClassName,
       optionClassName,
       menuClassName,
       displayMenu,
@@ -465,7 +467,7 @@ export default class Autocomplete extends Component {
     const showNoOptionsFound = this.props.showNoOptionsFound &&
       inputFocused && noOptionsAvailable && queryNotEmpty && queryLongEnough
 
-    const wrapperClassName = `${cssNamespace}__wrapper`
+    const wrapperClasses = `${cssNamespace}__wrapper${wrapperClassName ? ' ' + wrapperClassName : ''}`
 
     const inputClassName = `${cssNamespace}__input`
     const componentIsFocused = focused !== null
@@ -509,7 +511,7 @@ export default class Autocomplete extends Component {
     }
 
     return (
-      <div className={wrapperClassName} onKeyDown={this.handleKeyDown}>
+      <div className={wrapperClasses} onKeyDown={this.handleKeyDown}>
         <Status
           id={id}
           length={options.length}
