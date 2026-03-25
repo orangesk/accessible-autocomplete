@@ -46,6 +46,7 @@ export default class Autocomplete extends Component {
     displayMenu: 'inline',
     minLength: 0,
     name: 'input-autocomplete',
+    autocomplete: 'off',
     placeholder: '',
     onConfirm: () => {},
     confirmOnBlur: true,
@@ -236,7 +237,7 @@ export default class Autocomplete extends Component {
     const autoselect = this.hasAutoselect()
     const query = event.target.value
     const queryEmpty = query.length === 0
-    const queryChanged = searchOnInteraction || this.state.query.length !== query.length
+    const queryChanged = searchOnInteraction || this.state.query !== query
     const queryLongEnough = query.length >= minLength
 
     this.setState({
@@ -249,6 +250,24 @@ export default class Autocomplete extends Component {
     const searchForOptions = showAllValues || (!queryEmpty && queryChanged && queryLongEnough)
     if (searchForOptions) {
       source(query, (options) => {
+        const normalizedQuery = this.templateInputValue(query).toLowerCase()
+        const hasSingleExactMatch =
+          options.length === 1 &&
+          this.templateInputValue(options[0]).toLowerCase() === normalizedQuery
+
+        if (hasSingleExactMatch) {
+          const selectedOption = options[0]
+          this.props.onConfirm(selectedOption)
+          this.setState({
+            menuOpen: false,
+            options,
+            query: this.templateInputValue(selectedOption),
+            selected: -1,
+            validChoiceMade: true
+          })
+          return
+        }
+
         const optionsAvailable = options.length > 0
         this.setState((prevState) => ({
           /** if previous state was not focused on input or option
@@ -443,6 +462,7 @@ export default class Autocomplete extends Component {
       menuClassName,
       displayMenu,
       enterKeyHint,
+      autocomplete,
       id,
       minLength,
       name,
@@ -538,7 +558,7 @@ export default class Autocomplete extends Component {
           aria-owns={`${id}__listbox`}
           aria-autocomplete={(this.hasAutoselect()) ? 'both' : 'list'}
           {...ariaDescribedProp}
-          autoComplete='off'
+          autoComplete={autocomplete}
           className={`${inputClassName}${inputModifierFocused}${inputModifierType}${customInputClassName ? ` ${customInputClassName}` : ''}`}
           id={id}
           onClick={(event) => this.handleInputClick(event)}
