@@ -43,6 +43,12 @@ accessibleAutocomplete.enhanceSelectElement = (configurationOptions) => {
     }
   }
   if (configurationOptions.autoselect === undefined) configurationOptions.autoselect = true
+  if (configurationOptions.autocomplete === undefined) {
+    const selectAutocomplete = configurationOptions.selectElement.getAttribute('autocomplete')
+    if (selectAutocomplete !== null) {
+      configurationOptions.autocomplete = selectAutocomplete
+    }
+  }
 
   const element = document.createElement('div')
 

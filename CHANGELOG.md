@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Orangesk 3.2.0 - 2026-03-25
+
+### Feature
+
+- Support for native autoselect functionality
+
 ## Orangesk 3.1.1 - 2023-12-11
 
 ### Feature
