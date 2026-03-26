@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Orangesk 3.2.1 - 2026-03-26
+
+### Fix
+
+- Crashing `enhanceSelectElement` when no ID added
+- Crashing `enhanceSelectElement` when no option added
+
 ## Orangesk 3.2.0 - 2026-03-25
 
 ### Feature
