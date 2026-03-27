@@ -1,13 +1,6 @@
 import { createElement, render } from "preact"; /** @jsx createElement */
 import Autocomplete from "./autocomplete";
 
-let generatedIdCounter = 0;
-
-function generateId() {
-  generatedIdCounter += 1;
-  return `autocomplete-${generatedIdCounter}`;
-}
-
 function accessibleAutocomplete(options) {
   if (!options.element) {
     throw new Error("element is not defined");
@@ -75,11 +68,11 @@ accessibleAutocomplete.enhanceSelectElement = (configurationOptions) => {
 
   if (configurationOptions.name === undefined) configurationOptions.name = "";
   if (configurationOptions.id === undefined) {
-    configurationOptions.id =
-      configurationOptions.selectElement.id || generateId();
-  } else if (!configurationOptions.id) {
-    configurationOptions.id =
-      configurationOptions.selectElement.id || generateId();
+    if (configurationOptions.selectElement.id === undefined) {
+      configurationOptions.id = "";
+    } else {
+      configurationOptions.id = configurationOptions.selectElement.id;
+    }
   }
   if (configurationOptions.autoselect === undefined)
     configurationOptions.autoselect = true;
@@ -105,8 +98,7 @@ accessibleAutocomplete.enhanceSelectElement = (configurationOptions) => {
 
   configurationOptions.selectElement.style.display = "none";
   configurationOptions.selectElement.id =
-    (configurationOptions.selectElement.id || configurationOptions.id) +
-    "-select";
+    configurationOptions.selectElement.id + "-select";
 };
 
 export default accessibleAutocomplete;

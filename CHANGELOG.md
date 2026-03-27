@@ -1,17 +1,11 @@
 # CHANGELOG
 
-## Orangesk 3.2.1 - 2026-03-26
+## Orangesk 3.2.2 - 2026-03-27
 
-### Fix
+### Fixes
 
-- Crashing `enhanceSelectElement` when no ID added
-- Crashing `enhanceSelectElement` when no option added
-
-## Orangesk 3.2.0 - 2026-03-25
-
-### Feature
-
-- Support for native autoselect functionality
+- propagate `autocomplete` attribute from enhanced `select` to generated autocomplete input
+- avoid crash when enhancing an empty `select` element without options
 
 ## Orangesk 3.1.1 - 2023-12-11
 

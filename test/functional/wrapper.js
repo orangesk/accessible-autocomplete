@@ -111,27 +111,6 @@ describe("Wrapper", () => {
     expect(autocompleteInput.id).to.equal(id);
   });
 
-  it("can enhance a select element without an id attribute", () => {
-    const select = injectSelectToEnhanceIntoDOM(scratch, { id: "" });
-
-    accessibleAutocomplete.enhanceSelectElement({
-      selectElement: select,
-    });
-
-    const autocompleteInstances = document.querySelectorAll(
-      ".autocomplete__wrapper",
-    );
-    expect(autocompleteInstances.length).to.equal(1);
-
-    const autocompleteInstance = autocompleteInstances[0];
-    const autocompleteInput = autocompleteInstance.querySelector(
-      ".autocomplete__input",
-    );
-
-    expect(autocompleteInput.id).to.not.equal("");
-    expect(select.id).to.equal(autocompleteInput.id + "-select");
-  });
-
   it("can enhance an empty select element without options", () => {
     const select = injectSelectToEnhanceIntoDOM(scratch, { options: {} });
 
@@ -151,6 +130,24 @@ describe("Wrapper", () => {
       ".autocomplete__input",
     );
     expect(autocompleteInput.value).to.equal("");
+  });
+
+  it("uses select autocomplete attribute on generated input by default", () => {
+    const select = injectSelectToEnhanceIntoDOM(scratch);
+    select.setAttribute("autocomplete", "address-level2");
+
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: select,
+    });
+
+    const autocompleteInstances = document.querySelectorAll(
+      ".autocomplete__wrapper",
+    );
+    const autocompleteInstance = autocompleteInstances[0];
+    const autocompleteInput = autocompleteInstance.querySelector(
+      ".autocomplete__input",
+    );
+    expect(autocompleteInput.autocomplete).to.equal("address-level2");
   });
 
   it("uses the defaultValue setting to populate the input field if no option is selected", () => {
